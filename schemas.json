@@ -1,0 +1,119 @@
+{
+  "email": {
+    "read_email": {
+      "description": "Read a specific email message by its ID.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "messageId": { "type": "string", "description": "The unique ID of the email message." }
+        },
+        "required": ["messageId"]
+      }
+    },
+    "search_emails": {
+      "description": "Search for email messages using a query string.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": { "type": "string", "description": "The search query (e.g., 'from:someone@example.com')." },
+          "maxResults": { "type": "number", "default": 10 }
+        },
+        "required": ["query"]
+      }
+    },
+    "compose_draft": {
+      "description": "Create a new email draft. Use 'instructions' to describe the content; avoid writing the full body manually.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "to": { "type": "array", "items": { "type": "string" } },
+          "subject": { "type": "string" },
+          "instructions": { "type": "string", "description": "Description of what the email should say." },
+          "body": { "type": "string", "description": "Explicit body text (optional, skips voice matching)." }
+        },
+        "required": ["to", "subject", "instructions"]
+      }
+    },
+    "reply_to_email": {
+      "description": "Reply to an existing email thread.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "messageId": { "type": "string" },
+          "instructions": { "type": "string" }
+        },
+        "required": ["messageId", "instructions"]
+      }
+    },
+    "send_email_draft": {
+      "description": "Send a previously created draft.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "draftId": { "type": "string" }
+        },
+        "required": ["draftId"]
+      }
+    }
+  },
+  "calendar": {
+    "list_calendar_events": {
+      "description": "List events from the user's primary calendar.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "timeMin": { "type": "string", "format": "date-time" },
+          "timeMax": { "type": "string", "format": "date-time" },
+          "maxResults": { "type": "number", "default": 10 }
+        }
+      }
+    },
+    "get_calendar_event": {
+      "description": "Retrieve details of a specific calendar event.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "eventId": { "type": "string" }
+        },
+        "required": ["eventId"]
+      }
+    },
+    "create_calendar_event": {
+      "description": "Create a new event on the user's calendar.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string" },
+          "start": { "type": "string", "format": "date-time" },
+          "end": { "type": "string", "format": "date-time" },
+          "description": { "type": "string" },
+          "attendees": { "type": "array", "items": { "type": "string" } }
+        },
+        "required": ["title", "start", "end"]
+      }
+    },
+    "update_calendar_event": {
+      "description": "Update an existing calendar event.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "eventId": { "type": "string" },
+          "title": { "type": "string" },
+          "start": { "type": "string", "format": "date-time" },
+          "end": { "type": "string", "format": "date-time" }
+        },
+        "required": ["eventId"]
+      }
+    },
+    "delete_calendar_event": {
+      "description": "Remove an event from the user's calendar.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "eventId": { "type": "string" }
+        },
+        "required": ["eventId"]
+      }
+    }
+  }
+}
